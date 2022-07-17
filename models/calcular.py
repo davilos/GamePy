@@ -1,9 +1,10 @@
 from random import randint
+from typing import Union
 
 
 class Calcular:
 
-    def __init__(self: object, dificuldade: int, /) -> None:
+    def __init__(self, dificuldade: int, /) -> None:
         self.__dificuldade: int = dificuldade
         self.__valor1: int = self._gerar_valor
         self.__valor2: int = self._gerar_valor
@@ -12,27 +13,27 @@ class Calcular:
         self.__resultado: int = self._gerar_resultado
 
     @property
-    def dificuldade(self: object) -> int:
+    def dificuldade(self) -> int:
         return self.__dificuldade
 
     @property
-    def valor1(self: object) -> int:
+    def valor1(self) -> int:
         return self.__valor1
 
     @property
-    def valor2(self: object) -> int:
+    def valor2(self) -> int:
         return self.__valor2
 
     @property
-    def operacao(self: object) -> int:
+    def operacao(self) -> int:
         return self.__operacao
 
     @property
-    def resultado(self: object) -> int:
+    def resultado(self) -> int:
         return self.__resultado
 
     @property
-    def _gerar_valor(self: object) -> int:
+    def _gerar_valor(self) -> int:
         if self.dificuldade == 1:
             return randint(0, 20)
         elif self.dificuldade == 2:
@@ -45,22 +46,22 @@ class Calcular:
             return randint(0, 100000)
 
     @property
-    def _gerar_resultado(self: object) -> int:
+    def _gerar_resultado(self) -> int:
         if self.operacao == 1:
             return self.valor1 + self.valor2
         elif self.operacao == 2:
             return self.valor1 - self.valor2
         return self.valor1 * self.valor2
 
-    def checar_resultado(self: object, resposta: int) -> bool:
+    def checar_resultado(self, resposta: int) -> Union[bool, str]:
         if self._gerar_resultado == resposta:
             print('Resposta correta!')
             return True
         print('Resposta errada!')
         # '{self.valor1} + {self.valor2} = ' + resultado
-        print((rsp := f'{self.mostrar_operacao()[:-1] + str(self.resultado)}'))
+        return (rsp := f'{self.mostrar_operacao()[:-1] + str(self.resultado)}')
 
-    def mostrar_operacao(self: object) -> None:
+    def mostrar_operacao(self) -> str:
         if self.operacao == 1:
             return f'{self.valor1} + {self.valor2} = ?'
         elif self.operacao == 2:
@@ -68,7 +69,7 @@ class Calcular:
         else:
             return f'{self.valor1} * {self.valor2} = ?'
 
-    def __str__(self: object) -> str:
+    def __str__(self) -> str:
         op: str = ''
         if self.operacao == 1:
             op = 'Somar'
